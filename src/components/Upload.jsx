@@ -17,6 +17,7 @@ const Upload = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [response, setResponse] = useState([]);
+    const [isUploaded, setIsUploaded] = useState(false);
 
     const handleFileInput = (e) => {
         setSelectedFile(e.target.files[0]);
@@ -26,19 +27,28 @@ const Upload = () => {
         uploadFile(file, config)
         .then(data => {
             setResponse(data);
-            console.log(data)
+            console.log({data})
+            setIsUploaded(true);
+            console.log(data.result.status);
         })
         .catch(err => console.error(err))
     }
+
     return (
         <div>
             <h2>React S3 File Upload</h2>
             <input type="file" onChange={handleFileInput} />
             <button onClick = {() => handleUpload(selectedFile)}>Upload to S3</button>
+            <>
+                { isUploaded &&
+                    <h3>{(response.result.status === 204) ? 'Success...' : 'Failed to upload file...'}
+                    </h3>
+                }
+            </>
+            <>
+                <img src={response.location} alt={response.key} />
+            </>
 
-        <>
-            <img src={response.location} alt={response.key} />
-        </>
         </div>
     )
 }
