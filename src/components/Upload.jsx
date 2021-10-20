@@ -41,12 +41,12 @@ const Upload = () => {
             <button onClick = {() => handleUpload(selectedFile)}>Upload to S3</button>
             <>
                 { isUploaded &&
-                    <h3>{(response.result.status === 204) ? 'Success...' : 'Failed to upload file...'}
+                    <h3>{(response?.result?.status === 204) ? 'Success...' : 'Failed to upload file...'}
                     </h3>
                 }
             </>
             <>
-                <img src={response.location} alt={response.key} />
+                <img src={response?.location} alt={response?.key} />
             </>
 
         </div>
